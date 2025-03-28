@@ -1,0 +1,102 @@
+Class SPQ:
+    Properties:
+        array: array to store heap elements
+        isMinHeap: boolean indicating current state (Min-heap or Max-heap)
+        size: integer representing the number of elements in the heap
+
+    Methods:
+
+        toggle():
+            isMinHeap <- NOT isMinHeap
+            reheapify entire array using down-heap bubble for all internal nodes
+
+        insert(k, v):
+            Create entry e <- (k, v)
+            Add e to the end of array
+            Perform up-heap bubble(e)
+            size <- size + 1
+            return e
+
+        removeTop():
+            if size = 0:
+                return NULL
+            topEntry <- array[0]
+            Swap(array[0], array[size-1])
+            Remove the last element of array
+            size <- size - 1
+            Perform down-heap bubble(array[0])
+            return topEntry
+
+        top():
+            if size = 0:
+                return NULL
+            return array[0]
+
+        remove(e):
+            index <- find index of e in array
+            if index = size - 1:
+                Remove the last element of array
+                size <- size - 1
+            else:
+                Swap(array[index], array[size-1])
+                Remove the last element of array
+                size <- size - 1
+                Perform reheapify from index (use up-heap or down-heap bubble as needed)
+            return e
+
+        replaceKey(e, k):
+            index <- find index of e in array
+            oldKey <- array[index].key
+            array[index].key <- k
+            Perform reheapify from index (use up-heap or down-heap bubble as needed)
+            return oldKey
+
+        replaceValue(e, v):
+            index <- find index of e in array
+            oldValue <- array[index].value
+            array[index].value <- v
+            return oldValue
+
+        state():
+            if isMinHeap:
+                return "Min-heap"
+            else:
+                return "Max-heap"
+
+        isEmpty():
+            return size = 0
+
+        size():
+            return size
+
+        extendArray():
+            Create new array Temp with double the size of current array
+            For each i from 0 to size-1:
+                Temp[i] <- array[i]
+            Replace array with Temp
+
+        up-heap bubble(e):
+            index <- index of e in array
+            while index > 0:
+                parentIndex <- (index - 1) // 2
+                if compare(array[index], array[parentIndex]):
+                    Swap(array[index], array[parentIndex])
+                    index <- parentIndex
+                else:
+                    break
+
+        down-heap bubble(e):
+            index <- index of e in array
+            while index has children:
+                childIndex <- index of child with highest priority (smallest or largest key)
+                if compare(array[childIndex], array[index]):
+                    Swap(array[index], array[childIndex])
+                    index <- childIndex
+                else:
+                    break
+
+        compare(a, b):
+            if isMinHeap:
+                return a.key < b.key
+            else:
+                return a.key > b.key

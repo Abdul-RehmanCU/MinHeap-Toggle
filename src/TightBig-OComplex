@@ -1,0 +1,10 @@
+1. Toggle () : the time complexity is O(nlogn) since for a heap of size n, there are n/2 internal nodes
+
+2. remove (e): time complexity is O(n) since the linear search takes n time due to going through the whole array
+                and reheapifying takes O(logn). Together, it is O(n)
+
+3. replaceKey (e,K): time complexity is also O(n) since linear search = O(n) and reheapifying takes O(logn)
+                together it becomes O(n)
+
+4. replaceValue (e,v): time complexity is O(n) since linear search takes O(n) time and then updating the value itself
+                        is O(1). Together, O(n)
